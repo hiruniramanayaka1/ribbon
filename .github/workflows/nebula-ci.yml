@@ -1,3 +1,8 @@
+# Optimized by ci-cost (https://github.com/mariotavarez/ci-cost)
+# Applied 1 optimization:
+# - [MEDIUM] Add concurrency group to "nebula-ci.yml"
+# Estimated savings: ~2 min/run
+#
 name: "CI"
 on:
   workflow_dispatch:
@@ -8,6 +13,10 @@ on:
       - '*'
   pull_request:
 
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   build:
     runs-on: ubuntu-latest
